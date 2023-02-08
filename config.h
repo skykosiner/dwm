@@ -73,34 +73,34 @@ static const Key keys[] = {
 
 	// Aircon control
 	{SUPER | ShiftMask, XK_o, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/aircon toggle")},
+	 SHCMD("~/.local/bin/aircon-stuff/aircon toggle")},
 	{SUPER | ShiftMask, XK_c, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/cold")},
+	 SHCMD("~/.local/bin/aircon-stuff/cold")},
 	{SUPER | ShiftMask, XK_h, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/hot")},
+	 SHCMD("~/.local/bin/aircon-stuff/hot")},
 	{MODKEY | SUPER, XK_c, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/aircon conflict")},
+	 SHCMD("~/.local/bin/aircon-stuff/aircon conflict")},
 	{SUPER, XK_n, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/airconControl -change")},
+	 SHCMD("~/.local/bin/aircon-stuff/airconControl -change")},
 	{SUPER, XK_h, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/aircon hot")},
+	 SHCMD("~/.local/bin/aircon-stuff/aircon hot")},
 	{SUPER, XK_c, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/aircon cold")},
+	 SHCMD("~/.local/bin/aircon-stuff/aircon cold")},
 	{SUPER, XK_f, spawn,
-	 SHCMD("/home/yoni/.local/bin/aircon-stuff/airconControl -sellect-fan")},
+	 SHCMD("~/.local/bin/aircon-stuff/airconControl -sellect-fan")},
 
 	// Light control
 	{SUPER|ShiftMask, XK_l, spawn,
-	 SHCMD("/home/yoni/.local/bin/misc/lights ceiling")},
+	 SHCMD("~/.local/bin/misc/lights ceiling")},
 	{SUPER|ShiftMask, XK_r, spawn,
-	 SHCMD("/home/yoni/.local/bin/misc/lights others")},
+	 SHCMD("~/.local/bin/misc/lights others")},
 	{SUPER|ShiftMask, XK_a, spawn,
-	 SHCMD("/home/yoni/.local/bin/misc/lights all")},
+	 SHCMD("~/.local/bin/misc/lights all")},
 	{SUPER|ShiftMask, XK_m, spawn,
-	 SHCMD("/home/yoni/.local/bin/window-manger/mointers")},
+	 SHCMD("~/.local/bin/window-manger/mointers")},
 
 	{SUPER|ShiftMask, XK_g, spawn,
-	 SHCMD("/home/yoni/.local/bin/general-scripts/picomToggle")},
+	 SHCMD("~/.local/bin/general-scripts/picomToggle")},
 
 	// Spotify
 	{SUPER, XK_p, spawn,
@@ -127,9 +127,16 @@ static const Key keys[] = {
 	// Screenshot
 	{SUPER|ShiftMask, XK_s, spawn, SHCMD("flameshot gui -p ~/Pictures/Captures")},
 
+	// Change background
+	{MODKEY|ShiftMask, XK_b, spawn, SHCMD("~/.local/bin/general-scripts/change_background_dmenu")},
+
+	// Keyboard stuff
+	{SUPER, XK_d, spawn, SHCMD("setxkbmap -layout real-prog-dvorak")},
+	{SUPER, XK_q, spawn, SHCMD("setxkbmap -layout us")},
+
 	// Emoji
-	// {SUPER|ShiftMask, XK_e, spawn,
-	 // SCHMD("~/.local/bin/general-scripts/menu-emoji")},
+	{SUPER|ShiftMask, XK_e, spawn,
+	 SCHMD("~/.local/bin/general-scripts/menu-emoji")},
 
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
@@ -158,7 +165,6 @@ static const Key keys[] = {
 				XK_bracketright, 8){MODKEY | ShiftMask, XK_r, quit, {0}},
 };
 
-/* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
  * ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
