@@ -76,6 +76,11 @@ static const Key keys[] = {
 	// Set background
 	{SUPER, XK_w, spawn, SHCMD("sxiv -t $(find ~/.dotfiles/anime | sort)")},
 
+
+	// Screen brightness
+	{SUPER, XK_bracketleft, spawn, SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness up")},
+	{SUPER, XK_braceleft, spawn, SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness down")},
+
 	// Aircon control
 	{SUPER | ShiftMask, XK_o, spawn,
 	 SHCMD("~/.local/bin/aircon-stuff/aircon toggle")},
@@ -120,11 +125,11 @@ static const Key keys[] = {
 
 	// Pulse Audio controls
 	{SUPER, XK_plus, spawn,
-	 SHCMD("~/.local/bin/general-scripts/volumeControl -up")},
+	 SHCMD("~/.local/bin/general-scripts/volumeControl up")},
 	{SUPER, XK_minus, spawn,
-	 SHCMD("~/.local/bin/general-scripts/volumeControl -down")},
+	 SHCMD("~/.local/bin/general-scripts/volumeControl down")},
 	{SUPER, XK_m, spawn,
-	 SHCMD("~/.local/bin/general-scripts/volumeControl -mute-vol")},
+	 SHCMD("~/.local/bin/general-scripts/volumeControl mute")},
 
 	// File stuff
 	{SUPER, XK_o, spawn, SHCMD("alacritty -e nnn")},
@@ -170,9 +175,12 @@ static const Key keys[] = {
 				XK_bracketright, 8){MODKEY | ShiftMask, XK_r, quit, {0}},
 
 	// Gaps
-	{ SUPER|ShiftMask,                       XK_minus,  setgaps,        {.i = -1 } },
-	{ SUPER|ShiftMask,                       XK_equal,  setgaps,        {.i = +1 } },
-	{ SUPER,             XK_equal,  setgaps,        {.i = 0  } },
+	{SUPER|ShiftMask,                       XK_minus,  setgaps,        {.i = -1 } },
+	{SUPER|ShiftMask,                       XK_equal,  setgaps,        {.i = +1 } },
+	{SUPER,             XK_equal,  setgaps,        {.i = 0  } },
+
+	// Fullscreen
+	{MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
