@@ -1,8 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx = 1; /* border pixel of windows */
+#include <X11/X.h>
+static const unsigned int borderpx = 3; /* border pixel of windows */
 static const unsigned int snap = 32;    /* snap pixel */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 static const char *fonts[] = {"monospace:size=15"};
@@ -71,6 +73,9 @@ static const Key keys[] = {
 	// Open browser
 	{MODKEY | ShiftMask, XK_w, spawn, SHCMD("/usr/bin/qutebrowser")},
 
+	// Set background
+	{SUPER, XK_w, spawn, SHCMD("sxiv -t $(find ~/.dotfiles/anime | sort)")},
+
 	// Aircon control
 	{SUPER | ShiftMask, XK_o, spawn,
 	 SHCMD("~/.local/bin/aircon-stuff/aircon toggle")},
@@ -136,7 +141,7 @@ static const Key keys[] = {
 
 	// Emoji
 	{SUPER|ShiftMask, XK_e, spawn,
-	 SCHMD("~/.local/bin/general-scripts/menu-emoji")},
+	 SHCMD("~/.local/bin/general-scripts/menu-emoji")},
 
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
@@ -163,6 +168,11 @@ static const Key keys[] = {
 		TAGKEYS(XK_parenleft, 3) TAGKEYS(XK_ampersand, 4) TAGKEYS(XK_equal, 5)
 			TAGKEYS(XK_parenright, 6) TAGKEYS(XK_braceright, 7) TAGKEYS(
 				XK_bracketright, 8){MODKEY | ShiftMask, XK_r, quit, {0}},
+
+	// Gaps
+	{ SUPER|ShiftMask,                       XK_minus,  setgaps,        {.i = -1 } },
+	{ SUPER|ShiftMask,                       XK_equal,  setgaps,        {.i = +1 } },
+	{ SUPER,             XK_equal,  setgaps,        {.i = 0  } },
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
