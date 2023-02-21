@@ -64,11 +64,15 @@ static const char *dmenucmd[] = { "dmenu_run", "-h", "30"};
 static const char *termcmd[] = {"st", NULL};
 
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	{MODKEY, XK_p, spawn, {.v = dmenucmd}},
-	{MODKEY, XK_Return, spawn, {.v = termcmd}},
+    /* modifier                     key        function        argument */
+    {MODKEY, XK_p, spawn, {.v = dmenucmd}},
+    {MODKEY, XK_Return, spawn, {.v = termcmd}},
 
-	// Open emacs
+    // Rotate stack
+    {MODKEY | ShiftMask, XK_j, rotatestack, {.i = +1}},
+    {MODKEY | ShiftMask, XK_k, rotatestack, {.i = -1}},
+
+    // Open emacs
 	{SUPER, XK_e, spawn, SHCMD("emacsclient -c -a 'emacs'")},
 	{SUPER, XK_t, spawn, SHCMD("emacsclient -c -a 'emacs' '~/temp.org'")},
 	// Open emacs in dotfiles dir
@@ -82,40 +86,34 @@ static const Key keys[] = {
 	// Set background
 	{SUPER, XK_w, spawn, SHCMD("sxiv -t $(find ~/.dotfiles/anime | sort)")},
 
-
 	// Screen brightness
-	{SUPER, XK_bracketleft, spawn, SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness up")},
-	{SUPER, XK_braceleft, spawn, SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness down")},
+	{SUPER, XK_bracketleft, spawn,
+	 SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness up")},
+	{SUPER, XK_braceleft, spawn,
+	 SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness down")},
 
 	// Aircon control
 	{SUPER | ShiftMask, XK_o, spawn,
 	 SHCMD("~/.local/bin/aircon-stuff/aircon toggle")},
-	{SUPER | ShiftMask, XK_c, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/cold")},
-	{SUPER | ShiftMask, XK_h, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/hot")},
+	{SUPER | ShiftMask, XK_c, spawn, SHCMD("~/.local/bin/aircon-stuff/cold")},
+	{SUPER | ShiftMask, XK_h, spawn, SHCMD("~/.local/bin/aircon-stuff/hot")},
 	{MODKEY | SUPER, XK_c, spawn,
 	 SHCMD("~/.local/bin/aircon-stuff/aircon conflict")},
 	{SUPER, XK_n, spawn,
 	 SHCMD("~/.local/bin/aircon-stuff/airconControl -change")},
-	{SUPER, XK_h, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/aircon hot")},
-	{SUPER, XK_c, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/aircon cold")},
+	{SUPER, XK_h, spawn, SHCMD("~/.local/bin/aircon-stuff/aircon hot")},
+	{SUPER, XK_c, spawn, SHCMD("~/.local/bin/aircon-stuff/aircon cold")},
 	{SUPER, XK_f, spawn,
 	 SHCMD("~/.local/bin/aircon-stuff/airconControl -sellect-fan")},
 
 	// Light control
-	{SUPER|ShiftMask, XK_l, spawn,
-	 SHCMD("~/.local/bin/misc/lights ceiling")},
-	{SUPER|ShiftMask, XK_r, spawn,
-	 SHCMD("~/.local/bin/misc/lights others")},
-	{SUPER|ShiftMask, XK_a, spawn,
-	 SHCMD("~/.local/bin/misc/lights all")},
-	{SUPER|ShiftMask, XK_m, spawn,
+	{SUPER | ShiftMask, XK_l, spawn, SHCMD("~/.local/bin/misc/lights ceiling")},
+	{SUPER | ShiftMask, XK_r, spawn, SHCMD("~/.local/bin/misc/lights others")},
+	{SUPER | ShiftMask, XK_a, spawn, SHCMD("~/.local/bin/misc/lights all")},
+	{SUPER | ShiftMask, XK_m, spawn,
 	 SHCMD("~/.local/bin/window-manger/mointers")},
 
-	{SUPER|ShiftMask, XK_g, spawn,
+	{SUPER | ShiftMask, XK_g, spawn,
 	 SHCMD("~/.local/bin/general-scripts/picomToggle")},
 
 	// Spotify
@@ -125,7 +123,7 @@ static const Key keys[] = {
 	 SHCMD("~/.local/bin/window-manger/spotify-control -next")},
 	{SUPER, XK_comma, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -prev")},
-	{SUPER|ShiftMask, XK_p, spawn, SHCMD("spotify")},
+	{SUPER | ShiftMask, XK_p, spawn, SHCMD("spotify")},
 	{MODKEY, XK_a, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-album")},
 	// Lyrics
@@ -143,17 +141,19 @@ static const Key keys[] = {
 	{SUPER, XK_o, spawn, SHCMD("st -e lf")},
 
 	// Screenshot
-	{SUPER|ShiftMask, XK_s, spawn, SHCMD("flameshot gui -p ~/Pictures/Captures")},
+	{SUPER | ShiftMask, XK_s, spawn,
+	 SHCMD("flameshot gui -p ~/Pictures/Captures")},
 
 	// Change background
-	{MODKEY|ShiftMask, XK_b, spawn, SHCMD("~/.local/bin/general-scripts/change_background_dmenu")},
+	{MODKEY | ShiftMask, XK_b, spawn,
+	 SHCMD("~/.local/bin/general-scripts/change_background_dmenu")},
 
 	// Keyboard stuff
 	{SUPER, XK_d, spawn, SHCMD("setxkbmap -layout real-prog-dvorak")},
 	{SUPER, XK_q, spawn, SHCMD("setxkbmap -layout us")},
 
 	// Emoji
-	{SUPER|ShiftMask, XK_e, spawn,
+	{SUPER | ShiftMask, XK_e, spawn,
 	 SHCMD("~/.local/bin/general-scripts/menu-emoji")},
 
 	// Snipets
@@ -168,38 +168,32 @@ static const Key keys[] = {
 	{MODKEY, XK_d, incnmaster, {.i = -1}},
 	{MODKEY, XK_h, setmfact, {.f = -0.05}},
 	{MODKEY, XK_l, setmfact, {.f = +0.05}},
-	{MODKEY|ShiftMask, XK_Return, zoom, {0}},
+	{MODKEY | ShiftMask, XK_Return, zoom, {0}},
 	{MODKEY, XK_Tab, view, {0}},
-	{MODKEY|ShiftMask, XK_q, killclient, {0}},
+	{MODKEY | ShiftMask, XK_q, killclient, {0}},
 	{MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
 	{MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
 	{MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
 	{MODKEY, XK_space, setlayout, {0}},
-	{MODKEY|ShiftMask, XK_space, togglefloating, {0}},
+	{MODKEY | ShiftMask, XK_space, togglefloating, {0}},
 	{MODKEY, XK_0, view, {.ui = ~0}},
-	{MODKEY|ShiftMask, XK_0, tag, {.ui = ~0}},
+	{MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
 	{MODKEY, XK_comma, focusmon, {.i = -1}},
 	{MODKEY, XK_period, focusmon, {.i = +1}},
-	{MODKEY|ShiftMask, XK_comma, tagmon, {.i = -1}},
-	{MODKEY|ShiftMask, XK_period, tagmon, {.i = +1}},
-	TAGKEYS(XK_plus, 0)
-	TAGKEYS(XK_bracketleft, 1)
-	TAGKEYS(XK_braceleft, 2)
-	TAGKEYS(XK_parenleft, 3)
-	TAGKEYS(XK_ampersand, 4)
-	TAGKEYS(XK_equal, 5)
-	TAGKEYS(XK_parenright, 6)
-	TAGKEYS(XK_braceright, 7)
-	TAGKEYS(XK_bracketright, 8)
-	{MODKEY | ShiftMask, XK_r, quit, {0}},
+	{MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
+	{MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
+	TAGKEYS(XK_plus, 0) TAGKEYS(XK_bracketleft, 1) TAGKEYS(XK_braceleft, 2)
+		TAGKEYS(XK_parenleft, 3) TAGKEYS(XK_ampersand, 4) TAGKEYS(XK_equal, 5)
+			TAGKEYS(XK_parenright, 6) TAGKEYS(XK_braceright, 7) TAGKEYS(
+				XK_bracketright, 8){MODKEY | ShiftMask, XK_r, quit, {0}},
 
 	// Gaps
-	{SUPER|ShiftMask,                       XK_minus,  setgaps,        {.i = -1 } },
-	{SUPER|ShiftMask,                       XK_equal,  setgaps,        {.i = +1 } },
-	{SUPER,             XK_equal,  setgaps,        {.i = 0  } },
+	{SUPER | ShiftMask, XK_minus, setgaps, {.i = -5}},
+	{SUPER | ShiftMask, XK_equal, setgaps, {.i = +5}},
+	{SUPER, XK_equal, setgaps, {.i = 0}},
 
 	// Fullscreen
-	{MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
+	{MODKEY | ShiftMask, XK_f, togglefullscr, {0}},
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
