@@ -1,7 +1,86 @@
 #+title: My dwm config
 
 - Mod = Alt
+- Almost all of these keybinds require scripts I have writen
+  - You can find these scripts on my github: [[github:skykosiner/.dotfiles][.dotfiles]]
 
-* Common keybinds
-- Open a terminal (alacritty): Mod+Enter
-- Open a luancher prompt (dmenu): Mod+p
+* Install
+#+begin_src bash
+git clone https://github.com/skykosiner/dwm
+cd dwm
+sudo make clean install
+# Now we need to tell xorg where are dwm binary is
+sudo touch /usr/share/xsessions/dwm.desktop
+sudo vim /usr/share/xsessions/dwm.desktop
+#+end_src
+Put into the file
+#+begin_src
+[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Comment=Dynamic windo manger
+Exec= # Your path to your dwm binary (this is most likely in /usr/bin/dwm)
+Icon=dwm
+Type=XSession
+#+end_src
+
+* Key binds
+- Open a terminal (st): Mod+Enter
+- Open a launcher prompt (dmenu): Mod+p
+- Open a browser (qutebrowser): Mod+Shift+w
+- Open my file manger (lf): Super+o
+- Take a screenshot (flameshot): Super+Shift+s
+- Change keyboard to qwerty: Super+q
+- Change keyboard to Dvorak (Real programmers Dvorak): Super+d
+- Quit out of dwm: Mod+Shift+r
+** Window control
+- Move focus between windows: Mod+j|k
+- Resize master window: Mod+h|l
+- Kill a window: Mod+Shift+q
+- Set layout to tile: Mod+t
+- Set layout to float: Mod+f
+- Set layout to monocle: Mod+m
+- Move window to master: Mod+Shift+Enter
+- Move focus to different monitor: Mod+,|.
+- Move windo to different monitor: Mod+Shift+,|.
+- Make window fullscreen: Mod+Shift+f
+*** Moveing workspaces
+- I have these keys set to (+[{(&=)}]*) which may look very starange to you, but due to my dvorak layout this makes sense as my number row is using these by defualt.
+ - But if you're not using my dvorak layout I would recomend changing these to
+   123456789 in config.h
+** Emacs
+- Open Emacs: Super+e
+- Open Emacs in a temp.org file: Super+t
+- Open Emacs in dotfiles dir: Super+d
+** Scripts
+- Edit a common config in $EDITOR: Mod+e
+- Set the background using sxiv picker: Super+w
+- Set the background using a dmenu script: Mod+Shift+b
+- Set the brightness up: Super+[
+- Set the brightness down: Super+{
+- Select monitor output: Super+Shift+m
+- Select an emoji from dmenu: Super+Shift+e
+- Type a snipet: Super+s
+** Air-con control
+- Toggle air-con: Super+shift+o
+- Set air-con to cold, night, 18: Super+Shift+c
+- Set air-con to hot, 2, 25: Super+Shift+h
+- Fix conflict in air-cons: Mod+Super+c
+- Change air-con temp: Super+n
+- Change air-con mode to hot: Super+h
+- Change air-con mode to cold: Super+c
+- Select fan speed of zircon: Super+f
+** Light control
+- Toggle ceiling lights: Super+Shift+l
+- Toggle other lights: Super+Shift+r
+- Toggle all lights: Super+Shift+a
+** Spotify
+- Toggle spotify playing: Super+p
+- Change track forward: Super+.
+- Change track back: Super+,
+- Select an album from library and play: Mod+a
+- Open lyrics of currently playing song in sptlrx: Super+l
+** Pulse audio controls
+- Volume up by 5%: Super+'+'
+- Volume down by 5%: Super+'-'
+- Mute volume: Super+m
