@@ -60,15 +60,21 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[] = {"alacritty", NULL};
+static const char *dmenucmd[] = { "dmenu_run", "-h", "30"};
+static const char *termcmd[] = {"st", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{MODKEY, XK_p, spawn, {.v = dmenucmd}},
 	{MODKEY, XK_Return, spawn, {.v = termcmd}},
+
 	// Open emacs
-	{SUPER, XK_e, spawn, SHCMD("emacsclient -c")},
+	{SUPER, XK_e, spawn, SHCMD("emacsclient -c -a 'emacs'")},
+	{SUPER, XK_t, spawn, SHCMD("emacsclient -c -a 'emacs' '~/temp.org'")},
+	// Open emacs in dotfiles dir
+	{SUPER, XK_d, spawn, SHCMD("cd ~/.dotfiles && emacsclient -c .")},
+	// Edit configs in $EDITOR (set to emacs for me)
+	{MODKEY, XK_e, spawn, SHCMD("~/.local/bin/general-scripts/configEdit")},
 
 	// Open browser
 	{MODKEY | ShiftMask, XK_w, spawn, SHCMD("/usr/bin/qutebrowser")},
@@ -122,6 +128,8 @@ static const Key keys[] = {
 	{SUPER|ShiftMask, XK_p, spawn, SHCMD("spotify")},
 	{MODKEY, XK_a, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-album")},
+	// Lyrics
+	{SUPER, XK_l, spawn, SHCMD("st -e sptlrx")},
 
 	// Pulse Audio controls
 	{SUPER, XK_plus, spawn,
@@ -132,7 +140,7 @@ static const Key keys[] = {
 	 SHCMD("~/.local/bin/general-scripts/volumeControl mute")},
 
 	// File stuff
-	{SUPER, XK_o, spawn, SHCMD("alacritty -e nnn")},
+	{SUPER, XK_o, spawn, SHCMD("st -e lf")},
 
 	// Screenshot
 	{SUPER|ShiftMask, XK_s, spawn, SHCMD("flameshot gui -p ~/Pictures/Captures")},
@@ -147,6 +155,11 @@ static const Key keys[] = {
 	// Emoji
 	{SUPER|ShiftMask, XK_e, spawn,
 	 SHCMD("~/.local/bin/general-scripts/menu-emoji")},
+
+	// Snipets
+	{SUPER, XK_s, spawn, SHCMD("~/.local/bin/snipets")},
+
+	// Rotate stack
 
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
