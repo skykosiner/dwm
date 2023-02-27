@@ -7,7 +7,7 @@ static const unsigned int snap = 32;    /* snap pixel */
 static const unsigned int gappx     = 10;        /* gaps between windows */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
-static const char *fonts[] = {"monospace:size=15"};
+static const char *fonts[] = {"monospace:size=13"};
 static const char dmenufont[] = "monospace:size=12";
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
@@ -76,7 +76,7 @@ static const Key keys[] = {
 	{SUPER, XK_e, spawn, SHCMD("emacsclient -c -a 'emacs'")},
 	{SUPER, XK_t, spawn, SHCMD("emacsclient -c -a 'emacs' '~/temp.org'")},
 	// Open emacs in dotfiles dir
-	{SUPER, XK_d, spawn, SHCMD("cd ~/.dotfiles && emacsclient -c .")},
+	{SUPER|ShiftMask, XK_d, spawn, SHCMD("cd ~/.dotfiles && emacsclient -c .")},
 	// Edit configs in $EDITOR (set to emacs for me)
 	{MODKEY, XK_e, spawn, SHCMD("~/.local/bin/general-scripts/configEdit")},
 
@@ -182,14 +182,20 @@ static const Key keys[] = {
 	{MODKEY, XK_period, focusmon, {.i = +1}},
 	{MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
 	{MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
-	TAGKEYS(XK_plus, 0) TAGKEYS(XK_bracketleft, 1) TAGKEYS(XK_braceleft, 2)
-		TAGKEYS(XK_parenleft, 3) TAGKEYS(XK_ampersand, 4) TAGKEYS(XK_equal, 5)
-			TAGKEYS(XK_parenright, 6) TAGKEYS(XK_braceright, 7) TAGKEYS(
-				XK_bracketright, 8){MODKEY | ShiftMask, XK_r, quit, {0}},
+	TAGKEYS(XK_plus, 0)
+	TAGKEYS(XK_bracketleft, 1)
+	TAGKEYS(XK_braceleft, 2)
+	TAGKEYS(XK_parenleft, 3)
+	TAGKEYS(XK_ampersand, 4)
+	TAGKEYS(XK_equal, 5)
+	TAGKEYS(XK_parenright, 6)
+	TAGKEYS(XK_braceright, 7)
+	TAGKEYS(XK_bracketright, 8)
+	{MODKEY | ShiftMask, XK_r, quit, {0}},
 
 	// Gaps
-	{SUPER | ShiftMask, XK_minus, setgaps, {.i = -5}},
-	{SUPER | ShiftMask, XK_equal, setgaps, {.i = +5}},
+	{SUPER | ShiftMask, XK_minus, setgaps, {.i = -10}},
+	{SUPER | ShiftMask, XK_equal, setgaps, {.i = +10}},
 	{SUPER, XK_equal, setgaps, {.i = 0}},
 
 	// Fullscreen
