@@ -72,6 +72,9 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_j, rotatestack, {.i = +1}},
     {MODKEY | ShiftMask, XK_k, rotatestack, {.i = -1}},
 
+    // Pass menu
+    {MODKEY | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/general-scripts/passmenu")},
+
     // Open emacs
 	{SUPER, XK_e, spawn, SHCMD("emacsclient -c -a 'emacs'")},
 	{SUPER, XK_t, spawn, SHCMD("emacsclient -c -a 'emacs' '~/temp.org'")},
@@ -123,7 +126,7 @@ static const Key keys[] = {
 	 SHCMD("~/.local/bin/window-manger/spotify-control -next")},
 	{SUPER, XK_comma, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -prev")},
-	{SUPER | ShiftMask, XK_p, spawn, SHCMD("spotify")},
+	{SUPER | ShiftMask, XK_p, spawn, SHCMD("flatpak run com.spotify.Client")},
 	{MODKEY, XK_a, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-album")},
 	// Lyrics
