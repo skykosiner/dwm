@@ -129,6 +129,8 @@ static const Key keys[] = {
 	{SUPER | ShiftMask, XK_p, spawn, SHCMD("flatpak run com.spotify.Client")},
 	{MODKEY, XK_a, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-album")},
+	{MODKEY | ShiftMask, XK_s, spawn,
+	 SHCMD("~/.local/bin/window-manger/spotify-control -select-playlist")},
 	// Lyrics
 	{SUPER, XK_l, spawn, SHCMD("st -e sptlrx")},
 
@@ -162,7 +164,8 @@ static const Key keys[] = {
 	// Snipets
 	{SUPER, XK_s, spawn, SHCMD("~/.local/bin/snipets")},
 
-	// Rotate stack
+    // Captilaz sentences
+    {SUPER, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
 
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
