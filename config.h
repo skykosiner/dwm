@@ -126,7 +126,7 @@ static const Key keys[] = {
 	 SHCMD("~/.local/bin/window-manger/spotify-control -next")},
 	{SUPER, XK_comma, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -prev")},
-	{SUPER | ShiftMask, XK_p, spawn, SHCMD("flatpak run com.spotify.Client")},
+	{SUPER | ShiftMask, XK_p, spawn, SHCMD("spotify-launcher")},
 	{MODKEY, XK_a, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-album")},
 	{MODKEY | ShiftMask, XK_s, spawn,
@@ -165,7 +165,7 @@ static const Key keys[] = {
 	{SUPER, XK_s, spawn, SHCMD("~/.local/bin/snipets")},
 
     // Captilaz sentences
-    {SUPER, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
+    {MODKEY, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
 
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},

@@ -3,7 +3,6 @@
 - Mod = Alt
 - Almost all of these keybinds require scripts I have writen
   - You can find these scripts on my github: [[github:skykosiner/.dotfiles][.dotfiles]]
-
 * Install
 #+begin_src bash
 git clone https://github.com/skykosiner/dwm
@@ -23,64 +22,62 @@ Exec= # Your path to your dwm binary (this is most likely in /usr/bin/dwm)
 Icon=dwm
 Type=XSession
 #+end_src
-
 * Key binds
-- Open a terminal (st): Mod+Enter
-- Open a launcher prompt (dmenu): Mod+p
-- Open a browser (qutebrowser): Mod+Shift+w
-- Open my file manger (lf): Super+o
-- Take a screenshot (flameshot): Super+Shift+s
-- Change keyboard to qwerty: Super+q
-- Change keyboard to Dvorak (Real programmers Dvorak): Super+d
-- Quit out of dwm: Mod+Shift+r
-** Window control
-- Move focus between windows: Mod+j|k
-- Resize master window: Mod+h|l
-- Kill a window: Mod+Shift+q
-- Set layout to tile: Mod+t
-- Set layout to float: Mod+f
-- Set layout to monocle: Mod+m
-- Move window to master: Mod+Shift+Enter
-- Move focus to different monitor: Mod+,|.
-- Move windo to different monitor: Mod+Shift+,|.
-- Make window fullscreen: Mod+Shift+f
-*** Moveing workspaces
+| Key               | Action                                                          |
+|-------------------+-----------------------------------------------------------------|
+| Mod+Enter         | Open a terminal (st)                                            |
+| Mod+p             | Open a launcher prompt (dmenu)                                  |
+| Mod+Shift+w       | Open a browser (qutebrowser)                                    |
+| Super+o           | Open my file manger (lf)                                        |
+| Super+Shift+s     | Open flameshot and take a ss                                    |
+| Super+q           | Switch keyboard to qwerty                                       |
+| Super+d           | Switch kyebard to real programers dvorak                        |
+| Mod+Shift+r       | Quit out of dwm                                                 |
+| Mod+j and k       | Move focus between windows                                      |
+| Mod+h and l       | Resize master window                                            |
+| Mod+Shift+q       | Kill the active window                                          |
+| Mod+t             | Set the layout to tile                                          |
+| Mod+f             | Set the layout to float                                         |
+| Mod+m             | Set the layout to monocle                                       |
+| Mod+Shift+f       | Set window to full screen                                       |
+| Mod+Shift+Enter   | Set window to the master window                                 |
+| Mod+, and .       | Move focus between mointors                                     |
+| Mod+Shift+, and . | Move window between montiors                                    |
+| Mod+Shift+(+-*)   | Moving windows [fn:1]                                           |
+| Super+e           | Open emacsclient (the server starts on startup)                 |
+| Super+t           | Open emacsclient in a temp.org file (file is found in home dir) |
+| Mod+e             | Edit common configs in $EDITOR (emacsclient for me)             |
+| Super+w           | Set the background with a thumbnail picker from sxiv            |
+| Mod+Shift+b       | Set the background with a dmenu script                          |
+| Super+[           | Set the brightness up                                           |
+| Super+{           | Set the brightness down                                         |
+| Super+Shift+m     | Select montior output                                           |
+| Super+Shift+e     | Select an emoji from dmenu                                      |
+| Super+s           | Type a snipet                                                   |
+| Mod+Shift+c       | Captialise every word of the sentence and send to clipboard     |
+| Super+Shift+o     | Toggle air-con                                                  |
+| Super+Shift+c     | Set the air-con to cold, night, and the temp of 18              |
+| Super+Shift+h     | Set the air-con to hot, 2, and the temp of 25                   |
+| Mod+Super+c       | Fix conflicts in air-con                                        |
+| Super+n           | Dmenu prompt to change the temp of the air-con                  |
+| Super+h           | Set air-con to hot                                              |
+| Super+c           | Set air-con to cold                                             |
+| Super+f           | Select fan speed of air-con with dmenu                          |
+| Super+Shift+l     | Toggle ceiling lights                                           |
+| Super+Shift+r     | Toggle other lights                                             |
+| Super+Shift+a     | Toggle all lights                                               |
+| Super+p           | Toggle spotify playing                                          |
+| Super+.           | Change track forward spotify                                    |
+| Super+,           | Change track back spotify                                       |
+| Mod+a             | Select an album from libary and play it on spotify              |
+| Mod+Shift+s       | Select a playlist from spotify and play it                      |
+| Super+l           | Open the lyrics of the currently playing song in sptlrx         |
+| Super+'+'         | Volume up by 5%                                                 |
+| Super+'-'         | Volume down by 5%                                               |
+| Super+m           | Mute volume                                                     |
+* Footnotes
+[fn:1]
+** Moveing workspaces
 - I have these keys set to (+[{(&=)}]*) which may look very starange to you, but due to my dvorak layout this makes sense as my number row is using these by defualt.
  - But if you're not using my dvorak layout I would recomend changing these to
    123456789 in config.h
-** Emacs
-- Open Emacs: Super+e
-- Open Emacs in a temp.org file: Super+t
-- Open Emacs in dotfiles dir: Super+d
-** Scripts
-- Edit a common config in $EDITOR: Mod+e
-- Set the background using sxiv picker: Super+w
-- Set the background using a dmenu script: Mod+Shift+b
-- Set the brightness up: Super+[
-- Set the brightness down: Super+{
-- Select monitor output: Super+Shift+m
-- Select an emoji from dmenu: Super+Shift+e
-- Type a snipet: Super+s
-** Air-con control
-- Toggle air-con: Super+shift+o
-- Set air-con to cold, night, 18: Super+Shift+c
-- Set air-con to hot, 2, 25: Super+Shift+h
-- Fix conflict in air-cons: Mod+Super+c
-- Change air-con temp: Super+n
-- Change air-con mode to hot: Super+h
-- Change air-con mode to cold: Super+c
-- Select fan speed of zircon: Super+f
-** Light control
-- Toggle ceiling lights: Super+Shift+l
-- Toggle other lights: Super+Shift+r
-- Toggle all lights: Super+Shift+a
-** Spotify
-- Toggle spotify playing: Super+p
-- Change track forward: Super+.
-- Change track back: Super+,
-- Select an album from library and play: Mod+a
-- Open lyrics of currently playing song in sptlrx: Super+l
-** Pulse audio controls
-- Volume up by 5%: Super+'+'
-- Volume down by 5%: Super+'-'
-- Mute volume: Super+m
