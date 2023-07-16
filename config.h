@@ -2,7 +2,7 @@
 
 /* appearance */
 #include <X11/X.h>
-static const unsigned int borderpx = 3; /* border pixel of windows */
+static const unsigned int borderpx = 1; /* border pixel of windows */
 static const unsigned int snap = 32;    /* snap pixel */
 static const unsigned int gappx     = 10;        /* gaps between windows */
 static const int showbar = 1;           /* 0 means no bar */
@@ -34,7 +34,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;    /* number of clients in master area */
 static const int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -61,7 +61,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-h", "30"};
-static const char *termcmd[] = {"st", NULL};
+static const char *termcmd[] = {"alacritty", NULL};
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
@@ -72,19 +72,17 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_j, rotatestack, {.i = +1}},
     {MODKEY | ShiftMask, XK_k, rotatestack, {.i = -1}},
 
+    // Open the ~/temp.md file
+    {SUPER, XK_t, spawn, SHCMD("vim ~/temp.md")},
+
     // Pass menu
     {MODKEY | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/general-scripts/passmenu")},
 
-    // Open emacs
-	{SUPER, XK_e, spawn, SHCMD("emacsclient -c -a 'emacs'")},
-	{SUPER, XK_t, spawn, SHCMD("emacsclient -c -a 'emacs' '~/temp.org'")},
-	// Open emacs in dotfiles dir
-	{SUPER|ShiftMask, XK_d, spawn, SHCMD("cd ~/.dotfiles && emacsclient -c .")},
-	// Edit configs in $EDITOR (set to emacs for me)
+	// Edit configs in $EDITOR
 	{MODKEY, XK_e, spawn, SHCMD("~/.local/bin/general-scripts/configEdit")},
 
 	// Open browser
-	{MODKEY | ShiftMask, XK_w, spawn, SHCMD("/usr/bin/qutebrowser")},
+	{MODKEY | ShiftMask, XK_w, spawn, SHCMD("/usr/bin/brave")},
 
 	// Set background
 	{SUPER, XK_w, spawn, SHCMD("sxiv -t $(find ~/.dotfiles/anime | sort)")},
@@ -132,7 +130,7 @@ static const Key keys[] = {
 	{MODKEY | ShiftMask, XK_s, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-playlist")},
 	// Lyrics
-	{SUPER, XK_l, spawn, SHCMD("st -e sptlrx")},
+	{SUPER, XK_l, spawn, SHCMD("alacritty -e sptlrx")},
 
 	// Pulse Audio controls
 	{SUPER, XK_plus, spawn,
@@ -143,7 +141,7 @@ static const Key keys[] = {
 	 SHCMD("~/.local/bin/general-scripts/volumeControl mute")},
 
 	// File stuff
-	{SUPER, XK_o, spawn, SHCMD("st -e lf")},
+	{SUPER, XK_o, spawn, SHCMD("alacritty -e lf")},
 
 	// Screenshot
 	{SUPER | ShiftMask, XK_s, spawn,
@@ -152,6 +150,10 @@ static const Key keys[] = {
 	// Change background
 	{MODKEY | ShiftMask, XK_b, spawn,
 	 SHCMD("~/.local/bin/general-scripts/change_background_dmenu")},
+	{MODKEY | ShiftMask, XK_t, spawn,
+	 SHCMD("~/.local/bin/general-scripts/change_background_test_dmenu")},
+	{SUPER, XK_t, spawn,
+	 SHCMD("~/.local/bin/general-scripts/change_background_random_test")},
 
 	// Keyboard stuff
 	{SUPER, XK_d, spawn, SHCMD("setxkbmap -layout real-prog-dvorak")},
@@ -166,6 +168,10 @@ static const Key keys[] = {
 
     // Captilaz sentences
     {MODKEY, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
+
+	// FIND ME DADDY
+    {MODKEY | ShiftMask, XK_c, spawn, SHCMD("~/.local/bin/misc/find-me-daddy -add")},
+	{SUPER | ShiftMask, XK_f, spawn, SHCMD("~/.local/bin/misc/find-me-daddy -get-fuzzy")},
 
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
@@ -206,6 +212,14 @@ static const Key keys[] = {
 
 	// Fullscreen
 	{MODKEY | ShiftMask, XK_f, togglefullscr, {0}},
+
+    // Quick add a task to todoist
+    {SUPER, XK_space, spawn, SHCMD("/home/sky/.local/bin/quick-add-task")},
+    // Quick add note to obisdian
+    {SUPER | ShiftMask, XK_space, spawn, SHCMD("/home/sky/.local/bin/obsidian-cli quick-note")},
+
+    // Clipboard manger
+    {SUPER, XK_backslash, spawn, SHCMD("clipmenu")},
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
