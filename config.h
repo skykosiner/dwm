@@ -36,7 +36,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;    /* number of clients in master area */
-static const int resizehints = 1; /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0; /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
@@ -61,7 +61,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-h", "30"};
-static const char *termcmd[] = {"alacritty", NULL};
+static const char *termcmd[] = {"st", NULL};
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
@@ -130,7 +130,7 @@ static const Key keys[] = {
 	{MODKEY | ShiftMask, XK_s, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-playlist")},
 	// Lyrics
-	{SUPER, XK_l, spawn, SHCMD("alacritty -e sptlrx")},
+	{SUPER, XK_l, spawn, SHCMD("st -e sptlrx")},
 
 	// Pulse Audio controls
 	{SUPER, XK_plus, spawn,
@@ -141,7 +141,7 @@ static const Key keys[] = {
 	 SHCMD("~/.local/bin/general-scripts/volumeControl mute")},
 
 	// File stuff
-	{SUPER, XK_o, spawn, SHCMD("alacritty -e lf")},
+	{SUPER, XK_o, spawn, SHCMD("st -e ~/.local/bin/lfub")},
 
 	// Screenshot
 	{SUPER | ShiftMask, XK_s, spawn,
@@ -213,6 +213,8 @@ static const Key keys[] = {
 	// Fullscreen
 	{MODKEY | ShiftMask, XK_f, togglefullscr, {0}},
 
+    // Today list in todoist
+    {MODKEY | ShiftMask, XK_space, spawn, SHCMD("/home/sky/.local/bin/todoist --today")},
     // Quick add a task to todoist
     {SUPER, XK_space, spawn, SHCMD("/home/sky/.local/bin/quick-add-task")},
     // Quick add note to obisdian
@@ -220,6 +222,12 @@ static const Key keys[] = {
 
     // Clipboard manger
     {SUPER, XK_backslash, spawn, SHCMD("clipmenu")},
+
+    // Mount usb
+    {SUPER, XK_u, spawn, SHCMD("/home/sky/.local/bin/mount-usb")},
+
+    // Email with neomutt
+	{SUPER, XK_e, spawn, SHCMD("st -e neomutt")},
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
