@@ -85,7 +85,7 @@ static const Key keys[] = {
 	{MODKEY | ShiftMask, XK_w, spawn, SHCMD("/usr/bin/brave")},
 
 	// Set background
-	{SUPER, XK_w, spawn, SHCMD("sxiv -t $(find ~/.dotfiles/anime | sort)")},
+	{SUPER, XK_w, spawn, SHCMD("sxiv -t $(find ~/.dotfiles/backgrounds/ | sort)")},
 
 	// Screen brightness
 	{SUPER, XK_bracketleft, spawn,
@@ -187,7 +187,7 @@ static const Key keys[] = {
 	{MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
 	{MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
 	{MODKEY, XK_space, setlayout, {0}},
-	{MODKEY | ShiftMask, XK_space, togglefloating, {0}},
+	// {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
 	{MODKEY, XK_0, view, {.ui = ~0}},
 	{MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
 	{MODKEY, XK_comma, focusmon, {.i = -1}},
@@ -228,6 +228,9 @@ static const Key keys[] = {
 
     // Email with neomutt
 	{SUPER, XK_e, spawn, SHCMD("st -e neomutt")},
+
+    // System stuff
+    {MODKEY, XK_s, spawn, SHCMD("/home/sky/.local/bin/system-action")},
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
