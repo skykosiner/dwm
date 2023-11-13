@@ -1,24 +1,30 @@
 /* See LICENSE file for copyright and license details. */
 
+#define TERMCLASS "St"
+
 /* appearance */
 #include <X11/X.h>
-static const unsigned int borderpx = 1; /* border pixel of windows */
+static const unsigned int borderpx = 3; /* border pixel of windows */
 static const unsigned int snap = 32;    /* snap pixel */
-static const unsigned int gappx     = 10;        /* gaps between windows */
+static const unsigned int gappx     = 20;        /* gaps between windows */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 static const char *fonts[] = {"monospace:size=13"};
 static const char dmenufont[] = "monospace:size=12";
-static const char col_gray1[] = "#222222";
-static const char col_gray2[] = "#444444";
-static const char col_gray3[] = "#bbbbbb";
-static const char col_gray4[] = "#eeeeee";
-static const char col_cyan[] = "#005577";
-static const char *colors[][3] = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = {col_gray3, col_gray1, col_gray2},
-	[SchemeSel] = {col_gray4, col_cyan, col_cyan},
+static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+static char normbgcolor[]           = "#222222";
+static char normbordercolor[]       = "#444444";
+static char normfgcolor[]           = "#bbbbbb";
+static char selfgcolor[]            = "#eeeeee";
+static char selbordercolor[]        = "#770000";
+static char selbgcolor[]            = "#005577";
+static char *colors[][3] = {
+       /*               fg           bg           border   */
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
+
+// #include "/home/sky/.cache/wal/colors-wal-dwm.h"
 
 /* tagging */
 static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -27,10 +33,11 @@ static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
-	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{"Gimp", NULL, NULL, 0, 1, -1},
-	{"Firefox", NULL, NULL, 1 << 8, 0, -1},
+	*/
+    /* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
+    { "Gimp",     NULL,       NULL,       	    1 << 5,       0,           0,         0,        -1 },
+    { TERMCLASS,  NULL,       NULL,       	    0,            0,           1,         0,        -1 },
+    { NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 };
 
 /* layout(s) */
@@ -124,11 +131,13 @@ static const Key keys[] = {
 	 SHCMD("~/.local/bin/window-manger/spotify-control -next")},
 	{SUPER, XK_comma, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -prev")},
-	{SUPER | ShiftMask, XK_p, spawn, SHCMD("spotify-launcher")},
+	{SUPER | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/window-manger/spotify-control -play-song")},
 	{MODKEY, XK_a, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-album")},
 	{MODKEY | ShiftMask, XK_s, spawn,
 	 SHCMD("~/.local/bin/window-manger/spotify-control -select-playlist")},
+	{MODKEY | ShiftMask, XK_m, spawn, SHCMD("st -e spt")},
+
 	// Lyrics
 	{SUPER, XK_l, spawn, SHCMD("st -e sptlrx")},
 
@@ -150,10 +159,9 @@ static const Key keys[] = {
 	// Change background
 	{MODKEY | ShiftMask, XK_b, spawn,
 	 SHCMD("~/.local/bin/general-scripts/change_background_dmenu")},
-	{MODKEY | ShiftMask, XK_t, spawn,
-	 SHCMD("~/.local/bin/general-scripts/change_background_test_dmenu")},
+
 	{SUPER, XK_t, spawn,
-	 SHCMD("~/.local/bin/general-scripts/change_background_random_test")},
+	 SHCMD("~/.local/bin/torrents -dmenu")},
 
 	// Keyboard stuff
 	{SUPER, XK_d, spawn, SHCMD("setxkbmap -layout real-prog-dvorak")},
@@ -169,10 +177,6 @@ static const Key keys[] = {
     // Captilaz sentences
     {MODKEY, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
 
-	// FIND ME DADDY
-    {MODKEY | ShiftMask, XK_c, spawn, SHCMD("~/.local/bin/misc/find-me-daddy -add")},
-	{SUPER | ShiftMask, XK_f, spawn, SHCMD("~/.local/bin/misc/find-me-daddy -get-fuzzy")},
-
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
 	{MODKEY, XK_k, focusstack, {.i = -1}},
@@ -185,11 +189,11 @@ static const Key keys[] = {
 	{MODKEY | ShiftMask, XK_q, killclient, {0}},
 	{MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
 	{MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
-	{MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
+	// {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
 	{MODKEY, XK_space, setlayout, {0}},
-	// {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
-	{MODKEY, XK_0, view, {.ui = ~0}},
-	{MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
+	{SUPER | ShiftMask, XK_f, togglefloating, {0}},
+	{MODKEY, XK_asterisk, view, {.ui = ~0}},
+	{MODKEY | ShiftMask, XK_asterisk, tag, {.ui = ~0}},
 	{MODKEY, XK_comma, focusmon, {.i = -1}},
 	{MODKEY, XK_period, focusmon, {.i = +1}},
 	{MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
