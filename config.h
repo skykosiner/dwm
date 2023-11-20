@@ -6,7 +6,7 @@
 #include <X11/X.h>
 static const unsigned int borderpx = 3; /* border pixel of windows */
 static const unsigned int snap = 32;    /* snap pixel */
-static const unsigned int gappx     = 20;        /* gaps between windows */
+static const unsigned int gappx     = 30;        /* gaps between windows */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 static const char *fonts[] = {"monospace:size=13"};
@@ -83,10 +83,10 @@ static const Key keys[] = {
     {SUPER, XK_t, spawn, SHCMD("vim ~/temp.md")},
 
     // Pass menu
-    {MODKEY | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/general-scripts/passmenu")},
+    {MODKEY | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/passmenu")},
 
 	// Edit configs in $EDITOR
-	{MODKEY, XK_e, spawn, SHCMD("~/.local/bin/general-scripts/configEdit")},
+	{MODKEY, XK_e, spawn, SHCMD("~/.local/bin/configEdit")},
 
 	// Open browser
 	{MODKEY | ShiftMask, XK_w, spawn, SHCMD("/usr/bin/brave")},
@@ -96,46 +96,51 @@ static const Key keys[] = {
 
 	// Screen brightness
 	{SUPER, XK_bracketleft, spawn,
-	 SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness up")},
+	 SHCMD("~/.dotfiles/bin/.local/bin/brightness up")},
 	{SUPER, XK_braceleft, spawn,
-	 SHCMD("~/.dotfiles/bin/.local/bin/general-scripts/brightness down")},
+	 SHCMD("~/.dotfiles/bin/.local/bin/brightness down")},
 
 	// Aircon control
 	{SUPER | ShiftMask, XK_o, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/aircon toggle")},
-	{SUPER | ShiftMask, XK_c, spawn, SHCMD("~/.local/bin/aircon-stuff/cold")},
-	{SUPER | ShiftMask, XK_h, spawn, SHCMD("~/.local/bin/aircon-stuff/hot")},
+	 SHCMD("~/.local/bin/aircon toggle")},
+	{SUPER | ShiftMask, XK_c, spawn, SHCMD("~/.local/bin/cold")},
+	{SUPER | ShiftMask, XK_h, spawn, SHCMD("~/.local/bin/hot")},
 	{MODKEY | SUPER, XK_c, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/aircon conflict")},
+	 SHCMD("~/.local/bin/aircon conflict")},
 	{SUPER, XK_n, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/airconControl -change")},
-	{SUPER, XK_h, spawn, SHCMD("~/.local/bin/aircon-stuff/aircon hot")},
-	{SUPER, XK_c, spawn, SHCMD("~/.local/bin/aircon-stuff/aircon cold")},
+	 SHCMD("~/.local/bin/airconControl -change")},
+	{SUPER, XK_h, spawn, SHCMD("~/.local/bin/aircon hot")},
+	{SUPER, XK_c, spawn, SHCMD("~/.local/bin/aircon cold")},
 	{SUPER, XK_f, spawn,
-	 SHCMD("~/.local/bin/aircon-stuff/airconControl -sellect-fan")},
+	 SHCMD("~/.local/bin/airconControl -sellect-fan")},
 
 	// Light control
-	{SUPER | ShiftMask, XK_l, spawn, SHCMD("~/.local/bin/misc/lights ceiling")},
-	{SUPER | ShiftMask, XK_r, spawn, SHCMD("~/.local/bin/misc/lights others")},
-	{SUPER | ShiftMask, XK_a, spawn, SHCMD("~/.local/bin/misc/lights all")},
+	{SUPER | ShiftMask, XK_l, spawn, SHCMD("~/.local/bin/lights ceiling")},
+	{SUPER | ShiftMask, XK_r, spawn, SHCMD("~/.local/bin/lights others")},
+	{SUPER | ShiftMask, XK_a, spawn, SHCMD("~/.local/bin/lights all")},
+    {MODKEY | ShiftMask, XK_l, spawn, SHCMD("~/.local/bin/light-percent")},
+    {MODKEY | ShiftMask, XK_l, spawn, SHCMD("~/.local/bin/light-percent")},
+    {MODKEY | ShiftMask, XK_c, spawn, SHCMD("~/.local/bin/light-temp")},
+
+
 	{SUPER | ShiftMask, XK_m, spawn,
-	 SHCMD("~/.local/bin/window-manger/mointers")},
+	 SHCMD("~/.local/bin/mointers")},
 
 	{SUPER | ShiftMask, XK_g, spawn,
-	 SHCMD("~/.local/bin/general-scripts/picomToggle")},
+	 SHCMD("~/.local/bin/picomToggle")},
 
 	// Spotify
 	{SUPER, XK_p, spawn,
-	 SHCMD("~/.local/bin/window-manger/spotify-control -togglePlay")},
+	 SHCMD("~/.local/bin/spotify-control -togglePlay")},
 	{SUPER, XK_period, spawn,
-	 SHCMD("~/.local/bin/window-manger/spotify-control -next")},
+	 SHCMD("~/.local/bin/spotify-control -next")},
 	{SUPER, XK_comma, spawn,
-	 SHCMD("~/.local/bin/window-manger/spotify-control -prev")},
-	{SUPER | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/window-manger/spotify-control -play-song")},
+	 SHCMD("~/.local/bin/spotify-control -prev")},
+	{SUPER | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/spotify-control -play-song")},
 	{MODKEY, XK_a, spawn,
-	 SHCMD("~/.local/bin/window-manger/spotify-control -select-album")},
+	 SHCMD("~/.local/bin/spotify-control -select-album")},
 	{MODKEY | ShiftMask, XK_s, spawn,
-	 SHCMD("~/.local/bin/window-manger/spotify-control -select-playlist")},
+	 SHCMD("~/.local/bin/spotify-control -select-playlist")},
 	{MODKEY | ShiftMask, XK_m, spawn, SHCMD("st -e spt")},
 
 	// Lyrics
@@ -143,11 +148,11 @@ static const Key keys[] = {
 
 	// Pulse Audio controls
 	{SUPER, XK_plus, spawn,
-	 SHCMD("~/.local/bin/general-scripts/volumeControl up")},
+	 SHCMD("~/.local/bin/volumeControl up")},
 	{SUPER, XK_minus, spawn,
-	 SHCMD("~/.local/bin/general-scripts/volumeControl down")},
+	 SHCMD("~/.local/bin/volumeControl down")},
 	{SUPER, XK_m, spawn,
-	 SHCMD("~/.local/bin/general-scripts/volumeControl mute")},
+	 SHCMD("~/.local/bin/volumeControl mute")},
 
 	// File stuff
 	{SUPER, XK_o, spawn, SHCMD("st -e ~/.local/bin/lfub")},
@@ -158,7 +163,7 @@ static const Key keys[] = {
 
 	// Change background
 	{MODKEY | ShiftMask, XK_b, spawn,
-	 SHCMD("~/.local/bin/general-scripts/change_background_dmenu")},
+	 SHCMD("~/.local/bin/change_background_dmenu")},
 
 	{SUPER, XK_t, spawn,
 	 SHCMD("~/.local/bin/torrents -dmenu")},
@@ -169,13 +174,13 @@ static const Key keys[] = {
 
 	// Emoji
 	{SUPER | ShiftMask, XK_e, spawn,
-	 SHCMD("~/.local/bin/general-scripts/menu-emoji")},
+	 SHCMD("~/.local/bin/menu-emoji")},
 
 	// Snipets
 	{SUPER, XK_s, spawn, SHCMD("~/.local/bin/snipets")},
 
     // Captilaz sentences
-    {MODKEY, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
+    // {MODKEY, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
 
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
@@ -235,6 +240,15 @@ static const Key keys[] = {
 
     // System stuff
     {MODKEY, XK_s, spawn, SHCMD("/home/sky/.local/bin/system-action")},
+
+    // Run remaps script
+    {MODKEY, XK_F1, spawn, SHCMD("/home/sky/.local/bin/keyboard-connected")},
+
+    // Open pulsemixer
+    {MODKEY, XK_F2, spawn, SHCMD("st -e pulsemixer")},
+
+    // Open thunar
+    {MODKEY, XK_F3, spawn, SHCMD("thunar")},
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
