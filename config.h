@@ -9,7 +9,7 @@ static const unsigned int snap = 32;    /* snap pixel */
 static const unsigned int gappx     = 30;        /* gaps between windows */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
-static const char *font[] = {"FiraCode Nerd Font Mono:size=13"};
+static const char *font[] = {"FiraCode Nerd Font Mono:size=15"};
 static const char dmenufont[] = "monospace:size=12";
 static const char *fonts[] = { font };
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
@@ -25,8 +25,6 @@ static char *colors[][3] = {
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
-// #include "/home/sky/.cache/wal/colors-wal-dwm.h"
-
 /* tagging */
 static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
@@ -36,7 +34,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	*/
     /* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
-    { "Gimp",     NULL,       NULL,       	    1 << 5,       0,           0,         0,        -1 },
+    // { "Gimp",     NULL,       NULL,       	    1 << 5,       0,           0,         0,        -1 },
     { TERMCLASS,  NULL,       NULL,       	    0,            0,           1,         0,        -1 },
     { NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 };
@@ -72,12 +70,84 @@ static const char *termcmd[] = {"st", NULL};
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
+    // Tag keys (have weird looking keys for the tag due to my keybord laytou)
+	TAGKEYS(XK_plus, 0)
+	TAGKEYS(XK_bracketleft, 1)
+	TAGKEYS(XK_braceleft, 2)
+	TAGKEYS(XK_parenleft, 3)
+	TAGKEYS(XK_ampersand, 4)
+	TAGKEYS(XK_equal, 5)
+	TAGKEYS(XK_parenright, 6)
+	TAGKEYS(XK_braceright, 7)
+	TAGKEYS(XK_bracketright, 8)
+
+    // Moving around windows and stuff
+    // Rotate stack
+    {MODKEY | ShiftMask, XK_j, rotatestack, {.i = -1}},
+    {MODKEY | ShiftMask, XK_k, rotatestack, {.i = +1}},
+
+    // Toggle bar
+	{MODKEY, XK_b, togglebar, {0}},
+
+    // Move around the stac
+	{MODKEY, XK_j, focusstack, {.i = +1}},
+	{MODKEY, XK_k, focusstack, {.i = -1}},
+
+    // Increase or decrase the number of masters
+	{MODKEY, XK_i, incnmaster, {.i = +1}},
+	{MODKEY, XK_d, incnmaster, {.i = -1}},
+
+    // Resize master
+	{MODKEY, XK_h, setmfact, {.f = -0.05}},
+	{MODKEY, XK_l, setmfact, {.f = +0.05}},
+
+    // Make window the master
+	{MODKEY | ShiftMask, XK_Return, zoom, {0}},
+
+    // Go back to last tag
+	{MODKEY, XK_Tab, view, {0}},
+
+    // Kill current selected window
+	{MODKEY | ShiftMask, XK_q, killclient, {0}},
+
+    // Change between floating and tiling layout (tiling: 🌈 floating: 💤)
+	{MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
+	{MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
+	// {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
+
+    // Change between all set layouts but as I only have two it will just change between floating and tiling
+	{MODKEY, XK_space, setlayout, {0}},
+
+    // Toggle floating for currently selected window
+	{SUPER | ShiftMask, XK_f, togglefloating, {0}},
+
+    // View every tag on one screen at once
+	{MODKEY, XK_asterisk, view, {.ui = ~0}},
+
+    // Make a window stick to every tag
+	{MODKEY | ShiftMask, XK_asterisk, tag, {.ui = ~0}},
+
+    // Switch focus between screens
+	{MODKEY, XK_comma, focusmon, {.i = -1}},
+	{MODKEY, XK_period, focusmon, {.i = +1}},
+
+    // Move window between screens
+	{MODKEY | ShiftMask, XK_comma, tagmon, {.i = +1}},
+	{MODKEY | ShiftMask, XK_period, tagmon, {.i = -1}},
+
+    // Quit dwm
+	// {MODKEY | ShiftMask, XK_r, quit, {0}},
+
+	// Gaps
+	{SUPER | ShiftMask, XK_minus, setgaps, {.i = -10}},
+	{SUPER | ShiftMask, XK_equal, setgaps, {.i = +10}},
+	{SUPER, XK_equal, setgaps, {.i = 0}},
+
+	// Fullscreen
+	{MODKEY | ShiftMask, XK_f, togglefullscr, {0}},
+
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
-
-    // Rotate stack
-    {MODKEY | ShiftMask, XK_j, rotatestack, {.i = +1}},
-    {MODKEY | ShiftMask, XK_k, rotatestack, {.i = -1}},
 
     // Time tracking funn
     {SUPER, XK_t, spawn, SHCMD("~/.local/bin/time-tracking")},
@@ -182,45 +252,6 @@ static const Key keys[] = {
     // Captilaz sentences
     // {MODKEY, XK_c, spawn, SHCMD("~/.local/bin/capitalizeSentence")},
 
-	{MODKEY, XK_b, togglebar, {0}},
-	{MODKEY, XK_j, focusstack, {.i = +1}},
-	{MODKEY, XK_k, focusstack, {.i = -1}},
-	{MODKEY, XK_i, incnmaster, {.i = +1}},
-	{MODKEY, XK_d, incnmaster, {.i = -1}},
-	{MODKEY, XK_h, setmfact, {.f = -0.05}},
-	{MODKEY, XK_l, setmfact, {.f = +0.05}},
-	{MODKEY | ShiftMask, XK_Return, zoom, {0}},
-	{MODKEY, XK_Tab, view, {0}},
-	{MODKEY | ShiftMask, XK_q, killclient, {0}},
-	{MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-	{MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
-	// {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
-	{MODKEY, XK_space, setlayout, {0}},
-	{SUPER | ShiftMask, XK_f, togglefloating, {0}},
-	{MODKEY, XK_asterisk, view, {.ui = ~0}},
-	{MODKEY | ShiftMask, XK_asterisk, tag, {.ui = ~0}},
-	{MODKEY, XK_comma, focusmon, {.i = -1}},
-	{MODKEY, XK_period, focusmon, {.i = +1}},
-	{MODKEY | ShiftMask, XK_comma, tagmon, {.i = +1}},
-	{MODKEY | ShiftMask, XK_period, tagmon, {.i = -1}},
-	TAGKEYS(XK_plus, 0)
-	TAGKEYS(XK_bracketleft, 1)
-	TAGKEYS(XK_braceleft, 2)
-	TAGKEYS(XK_parenleft, 3)
-	TAGKEYS(XK_ampersand, 4)
-	TAGKEYS(XK_equal, 5)
-	TAGKEYS(XK_parenright, 6)
-	TAGKEYS(XK_braceright, 7)
-	TAGKEYS(XK_bracketright, 8)
-	{MODKEY | ShiftMask, XK_r, quit, {0}},
-
-	// Gaps
-	{SUPER | ShiftMask, XK_minus, setgaps, {.i = -10}},
-	{SUPER | ShiftMask, XK_equal, setgaps, {.i = +10}},
-	{SUPER, XK_equal, setgaps, {.i = 0}},
-
-	// Fullscreen
-	{MODKEY | ShiftMask, XK_f, togglefullscr, {0}},
 
     // Today list in todoist
     {MODKEY | ShiftMask, XK_space, spawn, SHCMD("/home/sky/.local/bin/todoist --today")},
@@ -249,24 +280,24 @@ static const Key keys[] = {
 
     // Open thunar
     {MODKEY, XK_F3, spawn, SHCMD("thunar")},
-
-    // Rerun dwm blocks
-    {MODKEY, XK_F3, spawn, SHCMD("killall -q dwmblocks; setsid -f dwmblocks ")},
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
  * ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function argument */
-	{ClkLtSymbol, 0, Button1, setlayout, {0}},
-	{ClkLtSymbol, 0, Button3, setlayout, {.v = &layouts[2]}},
-	{ClkWinTitle, 0, Button2, zoom, {0}},
-	{ClkStatusText, 0, Button2, spawn, {.v = termcmd}},
-	{ClkClientWin, MODKEY, Button1, movemouse, {0}},
-	{ClkClientWin, MODKEY, Button2, togglefloating, {0}},
-	{ClkClientWin, MODKEY, Button3, resizemouse, {0}},
-	{ClkTagBar, 0, Button1, view, {0}},
-	{ClkTagBar, 0, Button3, toggleview, {0}},
-	{ClkTagBar, MODKEY, Button1, tag, {0}},
-	{ClkTagBar, MODKEY, Button3, toggletag, {0}},
+	{ ClkLtSymbol, 0, Button1, setlayout, {0}},
+	{ ClkLtSymbol, 0, Button3, setlayout, {.v = &layouts[2]}},
+	{ ClkWinTitle, 0, Button2, zoom, {0}},
+	// {ClkStatusText, 0, Button2, spawn, {.v = termcmd}},
+    { ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
+	{ ClkClientWin, MODKEY, Button1, movemouse, {0}},
+	{ ClkClientWin, MODKEY, Button2, togglefloating, {0}},
+	{ ClkClientWin, MODKEY, Button3, resizemouse, {0}},
+	{ ClkTagBar, 0, Button1, view, {0}},
+	{ ClkTagBar, 0, Button3, toggleview, {0}},
+	{ ClkTagBar, MODKEY, Button1, tag, {0}},
+	{ ClkTagBar, MODKEY, Button3, toggletag, {0}},
 };
