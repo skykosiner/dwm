@@ -9,8 +9,9 @@ static const unsigned int snap = 32;    /* snap pixel */
 static const unsigned int gappx     = 30;        /* gaps between windows */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
-static const char *fonts[] = {"monospace:size=13"};
+static const char *font[] = {"FiraCode Nerd Font Mono:size=13"};
 static const char dmenufont[] = "monospace:size=12";
+static const char *fonts[] = { font };
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
@@ -43,14 +44,13 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;    /* number of clients in master area */
-static const int resizehints = 0; /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{"[]=", tile}, /* first entry is default */
-	{"><>", NULL}, /* no layout function means floating behavior */
-	{"[M]", monocle},
+	{"🌈", tile}, /* first entry is default */
+	{"💤", NULL}, /* no layout function means floating behavior */
 };
 
 /* key definitions */
@@ -79,8 +79,8 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_j, rotatestack, {.i = +1}},
     {MODKEY | ShiftMask, XK_k, rotatestack, {.i = -1}},
 
-    // Open the ~/temp.md file
-    {SUPER, XK_t, spawn, SHCMD("vim ~/temp.md")},
+    // Time tracking funn
+    {SUPER, XK_t, spawn, SHCMD("~/.local/bin/time-tracking")},
 
     // Pass menu
     {MODKEY | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/passmenu")},
@@ -124,7 +124,7 @@ static const Key keys[] = {
 
 
 	{SUPER | ShiftMask, XK_m, spawn,
-	 SHCMD("~/.local/bin/mointers")},
+	 SHCMD("~/.local/bin/screens")},
 
 	{SUPER | ShiftMask, XK_g, spawn,
 	 SHCMD("~/.local/bin/picomToggle")},
@@ -165,7 +165,7 @@ static const Key keys[] = {
 	{MODKEY | ShiftMask, XK_b, spawn,
 	 SHCMD("~/.local/bin/change_background_dmenu")},
 
-	{SUPER, XK_t, spawn,
+	{SUPER | ShiftMask, XK_t, spawn,
 	 SHCMD("~/.local/bin/torrents -dmenu")},
 
 	// Keyboard stuff
@@ -249,6 +249,9 @@ static const Key keys[] = {
 
     // Open thunar
     {MODKEY, XK_F3, spawn, SHCMD("thunar")},
+
+    // Rerun dwm blocks
+    {MODKEY, XK_F3, spawn, SHCMD("killall -q dwmblocks; setsid -f dwmblocks ")},
 };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
