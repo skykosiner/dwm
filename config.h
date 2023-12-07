@@ -132,8 +132,8 @@ static const Key keys[] = {
 	{MODKEY, XK_period, focusmon, {.i = +1}},
 
     // Move window between screens
-	{MODKEY | ShiftMask, XK_comma, tagmon, {.i = +1}},
-	{MODKEY | ShiftMask, XK_period, tagmon, {.i = -1}},
+	{MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
+	{MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
 
     // Quit dwm
 	// {MODKEY | ShiftMask, XK_r, quit, {0}},
@@ -152,11 +152,11 @@ static const Key keys[] = {
     // Time tracking funn
     {SUPER, XK_t, spawn, SHCMD("~/.local/bin/time-tracking")},
 
-    // Pass menu
-    {MODKEY | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/passmenu")},
-
 	// Edit configs in $EDITOR
 	{MODKEY, XK_e, spawn, SHCMD("~/.local/bin/configEdit")},
+
+    // Pass menu
+    {MODKEY | ShiftMask, XK_p, spawn, SHCMD("~/.local/bin/passmenu")},
 
 	// Open browser
 	{MODKEY | ShiftMask, XK_w, spawn, SHCMD("/usr/bin/brave")},
